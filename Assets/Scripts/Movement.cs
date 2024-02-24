@@ -6,15 +6,17 @@ using TMPro;
 
 public class Movement : MonoBehaviour
 {
-
-    public float velocidad;
-    public float forceJump;
-    public int jumpsMax;
-    public LayerMask MaskFlood;
+    [SerializeField] private float velocidad;
+    [SerializeField] private float forceJump;
+    [SerializeField] private int jumpsMax;
+    [SerializeField] private LayerMask MaskFlood;
     [SerializeField] private int health;
     [SerializeField] private float damageDelay; //seconds before player can be damaged again
     [SerializeField] private TMP_Text coinCounter;
-    
+    [SerializeField] private AudioSource audioWalk;
+    [SerializeField] private AudioSource audioJump;
+    [SerializeField] private AudioSource audioDeath;
+
     private new BoxCollider2D boxCollider;
     private new Rigidbody2D rigidbody;
     private bool WatchRight;
@@ -22,12 +24,16 @@ public class Movement : MonoBehaviour
     private const string DAMAGE = "doesDamage"; //DO NOT CHANGE (damage will break)
     private const string COIN = "Coin"; //DO NOT CHANGE (coins will break)
     private int coinNum = 0;
+    private bool isMidAir = false;
     // Start is called before
     // the first frame update
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
+        audioWalk = GetComponent<AudioSource>();
+        audioJump = GetComponent<AudioSource>();
+        audioDeath = GetComponent<AudioSource>();
         jumpsRestants = jumpsMax;
     }
 
@@ -36,6 +42,8 @@ public class Movement : MonoBehaviour
     {
         mecanicaMovimiento();
         processJump();
+
+        isMidAir = !stayInFlood();
     }
 
     bool stayInFlood() {
@@ -50,11 +58,13 @@ public class Movement : MonoBehaviour
             jumpsRestants = jumpsMax;
         }
 
-            if (Input.GetKeyDown(KeyCode.Space) && jumpsRestants>0) {
+        if (Input.GetKeyDown(KeyCode.Space) && jumpsRestants>0) 
+        {
             jumpsRestants--;
             rigidbody.velocity = new Vector2(rigidbody.velocity.x, 0f);
             rigidbody.AddForce(Vector2.up * forceJump, ForceMode2D.Impulse);
-        
+
+            audioJump.Play();
         }
     
     }
@@ -93,7 +103,9 @@ public class Movement : MonoBehaviour
         {
             //SceneManager.LoadScene("GameOverScene"); //For when we get a game over screen/UI
             Destroy(gameObject); //Destroy self (temporary)
+            audioDeath.Play();
             Debug.Log("dead");
+
         }
     }
 
@@ -106,6 +118,25 @@ public class Movement : MonoBehaviour
         float inputMovimiento = Input.GetAxis("Horizontal");
         rigidbody.velocity = new Vector2(inputMovimiento * velocidad, rigidbody.velocity.y);
         GestionarOrientacion(inputMovimiento);
+
+        if (audioWalk.isPlaying)
+        {
+
+        }
+        else
+        {
+            if (isMidAir == false)
+            {
+                if (inputMovimiento == 0)
+                {
+                    audioWalk.Stop();
+                }
+                else
+                {
+                    audioWalk.Play();
+                }
+            }
+        }
     }
 
 
