@@ -16,7 +16,10 @@ public class Movement : MonoBehaviour
     [SerializeField] private AudioSource audioWalk;
     [SerializeField] private AudioSource audioJump;
     [SerializeField] private AudioSource audioDeath;
-
+    private int runsRemaining;
+    private Camera mainCam;
+    private Vector3 mousePos;
+    private Movement movementScript;
     private new BoxCollider2D boxCollider;
     private new Rigidbody2D rigidbody;
     private bool WatchRight;
@@ -25,6 +28,17 @@ public class Movement : MonoBehaviour
     private const string COIN = "Coin"; //DO NOT CHANGE (coins will break)
     private int coinNum = 0;
     private bool isMidAir = false;
+
+    public float velocityMoventBase;
+    public float velocityExtra;
+    public float timeSprint;
+    public int runMax;
+    private float timeActualSprint;
+    private float timeNextSprint;
+    public float timeBetweenSprint;
+    private bool run = true;
+    private bool runing = true;
+
     // Start is called before
     // the first frame update
     void Start()
@@ -35,6 +49,13 @@ public class Movement : MonoBehaviour
         audioJump = GetComponent<AudioSource>();
         audioDeath = GetComponent<AudioSource>();
         jumpsRestants = jumpsMax;
+        movementScript = GetComponent<Movement>();
+        mainCam = Camera.main;
+
+        jumpsRestants = jumpsMax;
+        timeActualSprint = timeSprint;
+        runsRemaining = runMax; // Inicializa la cantidad de veces que puede correr
+
     }
 
     // Update is called once per frame
@@ -42,8 +63,22 @@ public class Movement : MonoBehaviour
     {
         mecanicaMovimiento();
         processJump();
-
+        processRun();
         isMidAir = !stayInFlood();
+
+        float horizontalInput = Input.GetAxis("Horizontal");
+        if (horizontalInput != 0)
+        {
+            // Convertir la posición del mouse a coordenadas del mundo
+            mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
+
+            // Calcular la rotación hacia la posición del mouse
+            Vector2 direction = mousePos - transform.position;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+            // Aplicar la rotación al objeto
+            transform.rotation = Quaternion.Euler(0f, 0f, angle);
+        }
     }
 
     bool stayInFlood() {
@@ -67,6 +102,27 @@ public class Movement : MonoBehaviour
             audioJump.Play();
         }
     
+    }
+
+    void processRun()
+    {
+        if (stayInFlood())
+        {
+            runsRemaining = runMax;
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftShift) && run && runsRemaining > 0)
+        {
+            runsRemaining--; // Reduce la cantidad de veces que puede correr
+            velocidad = velocityExtra;
+            runing = true;
+        }
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            velocidad = velocityMoventBase;
+            runing = false;
+            run = true;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
