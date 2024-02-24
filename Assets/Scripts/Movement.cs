@@ -16,6 +16,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private AudioSource audioWalk;
     [SerializeField] private AudioSource audioJump;
     [SerializeField] private AudioSource audioDeath;
+
     private int runsRemaining;
     private Camera mainCam;
     private Vector3 mousePos;
@@ -77,8 +78,9 @@ public class Movement : MonoBehaviour
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
             // Aplicar la rotación al objeto
-            transform.rotation = Quaternion.Euler(0f, 0f, angle);
+            //transform.rotation = Quaternion.Euler(0f, 0f, angle);
         }
+        
     }
 
     bool stayInFlood() {

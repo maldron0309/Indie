@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerAimWeapon : MonoBehaviour
 {
+    public GameObject Player;
     private Camera mainCam;
     private Vector3 mousePos;
     public GameObject bullet;
@@ -41,6 +42,8 @@ public class PlayerAimWeapon : MonoBehaviour
             canFire = false;
             Instantiate(bullet, bulletTransform.position, Quaternion.identity);
         }
+
+        gameObject.transform.position = Player.transform.position;
     }
 
 
