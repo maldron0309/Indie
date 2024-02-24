@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class NewBehaviourScript : MonoBehaviour
 {
+    //Sorry I'm removing this because I have a quicker solution that probably won't be as janky, if it creates problems down the road we can come back to this. (squid-West)
+    //I'm adding CineMachine btw
+
     public Transform personaje;
 
     private float sizeCamera;
