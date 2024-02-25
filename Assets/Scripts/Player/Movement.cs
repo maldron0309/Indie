@@ -39,6 +39,7 @@ public class Movement : MonoBehaviour
     private bool run = true;
     private bool runing = true;
     private int runsRemaining;
+    float previousYPosition;
 
     // Misc variables
     private bool rightStep = true;
@@ -56,6 +57,7 @@ public class Movement : MonoBehaviour
     private void Start()
     {
         InitializeComponents();
+        previousYPosition = transform.position.y;
 
     }
 
@@ -84,6 +86,66 @@ public class Movement : MonoBehaviour
 
         HandleMouseDirection();
         UpdateAnimatorSpeed();
+
+        float currentYPosition = transform.position.y;
+
+                // Comprobar si el personaje está en el suelo (no está subiendo ni cayendo)
+        if (Mathf.Approximately(rigidbody.velocity.y, 0f))
+        {
+            if (rigidbody.velocity.magnitude > 0.1f)
+            {
+                // El personaje está caminando o corriendo
+                playerAnimator.SetBool("isWalking", true);
+                playerAnimator.SetBool("isJumping", false);
+                playerAnimator.SetBool("isLanding", false);
+
+            }
+            else
+            {
+                // El personaje está en reposo
+                playerAnimator.SetBool("isWalking", false);
+                playerAnimator.SetBool("isJumping", false);
+                playerAnimator.SetBool("isLanding", false);
+            }
+        }
+
+
+
+        else
+        {
+            // El personaje está en el aire, por lo tanto, está saltando o cayendo
+            if (currentYPosition > previousYPosition)
+            {
+                // El personaje está subiendo
+                playerAnimator.SetBool("isJumping", true);
+                playerAnimator.SetBool("isLanding", false);
+                playerAnimator.SetBool("isWalking", false);
+
+            }
+            else if (currentYPosition < previousYPosition)
+            {
+                // El personaje está cayendo
+                playerAnimator.SetBool("isJumping", false);
+                playerAnimator.SetBool("isLanding", true);
+                playerAnimator.SetBool("isWalking", false);
+            }
+        }
+
+        if (Mathf.Abs(rigidbody.velocity.x) > 0.1f)
+        {
+            // El personaje está caminando
+            playerAnimator.SetBool("isIdle", false);
+            playerAnimator.SetBool("isRunning", true);
+        }
+        else
+        {
+            // El personaje está en reposo
+            playerAnimator.SetBool("isRunning", false);
+            playerAnimator.SetBool("isIdle", true);
+        }
+
+        previousYPosition = currentYPosition;
+
     }
 
     private void HandleMouseDirection()
