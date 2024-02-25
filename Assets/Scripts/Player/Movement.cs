@@ -66,14 +66,15 @@ public class Movement : MonoBehaviour
         processJump();
         processRun();
         isMidAir = !stayInFlood();
+        // playerAnimator.SetBool("isFalling", isMidAir);
 
         float horizontalInput = Input.GetAxis("Horizontal");
         if (horizontalInput != 0)
         {
-            // Convertir la posición del mouse a coordenadas del mundo
+            // Convertir la posici? del mouse a coordenadas del mundo
             mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
 
-            // Calcular la rotación hacia la posición del mouse
+            // Calcular la rotaci? hacia la posici? del mouse
             Vector2 direction = mousePos - transform.position;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             
@@ -85,7 +86,7 @@ public class Movement : MonoBehaviour
             //{
             //    AudioManager.instance.PlayFootSteps("WalkLeft");
             //}
-            // Aplicar la rotación al objeto
+            // Aplicar la rotaci? al objeto
             //transform.rotation = Quaternion.Euler(0f, 0f, angle);
         }
         playerAnimator.SetFloat("Speed", Mathf.Abs(horizontalInput));
@@ -101,6 +102,7 @@ public class Movement : MonoBehaviour
         if (stayInFlood())
         {
             jumpsRestants = jumpsMax;
+            // playerAnimator.SetBool("isJumping", false);
         }
 
         if (Input.GetKeyDown(KeyCode.Space) && jumpsRestants>0) 
@@ -110,6 +112,8 @@ public class Movement : MonoBehaviour
             rigidbody.AddForce(Vector2.up * forceJump, ForceMode2D.Impulse);
             AudioManager.instance.FootStepsSource.Stop();
             AudioManager.instance.PlaySfx("Jump");
+
+            // playerAnimator.SetBool("isJumping", true);
         }
     
     }
