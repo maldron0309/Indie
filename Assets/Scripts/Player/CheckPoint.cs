@@ -13,12 +13,14 @@ public class CheckPoint : MonoBehaviour
         respawn = GameObject.FindGameObjectWithTag("Respawns").GetComponent<Respawn>();
 
     }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("player"))
         {
             respawn.respawnPoint = this.gameObject;
             checkPointcollider.enabled = false;
+            print("check");
             // If you collision with the last checkepoint. It will return it(checkPointcollider.enabled = true;). 
             // If you want the last checkpoint and it not return other. It will return it(checkPointcollider.enabled = false;). 
 

@@ -7,18 +7,6 @@ public class Respawn : MonoBehaviour
     public GameObject player;
     public GameObject respawnPoint;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("player"))
@@ -26,5 +14,10 @@ public class Respawn : MonoBehaviour
             player.transform.position = respawnPoint.transform.position;
             GameManager.instance.playerDied = true; 
         }
+    }
+
+    public void RespawnPlayer()
+    {
+        player.transform.position = respawnPoint.transform.position;
     }
 }
