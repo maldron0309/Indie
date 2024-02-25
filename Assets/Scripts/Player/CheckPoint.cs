@@ -19,6 +19,9 @@ public class CheckPoint : MonoBehaviour
         {
             respawn.respawnPoint = this.gameObject;
             checkPointcollider.enabled = false;
+            // If you collision with the last checkepoint. It will return it(checkPointcollider.enabled = true;). 
+            // If you want the last checkpoint and it not return other. It will return it(checkPointcollider.enabled = false;). 
+
         }
     }
 

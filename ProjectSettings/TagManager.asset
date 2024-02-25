@@ -8,6 +8,8 @@ TagManager:
   - Coin
   - player
   - Ring
+  - Respawns
+  - CheckPoint
   layers:
   - Default
   - TransparentFX
