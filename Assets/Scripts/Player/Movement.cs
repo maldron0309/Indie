@@ -109,7 +109,7 @@ public class Movement : MonoBehaviour
             rigidbody.velocity = new Vector2(rigidbody.velocity.x, 0f);
             rigidbody.AddForce(Vector2.up * forceJump, ForceMode2D.Impulse);
             AudioManager.instance.FootStepsSource.Stop();
-            //audioJump.Play();
+            AudioManager.instance.PlaySfx("Jump");
         }
     
     }

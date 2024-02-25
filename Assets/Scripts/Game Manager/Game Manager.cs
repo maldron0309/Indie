@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     [SerializeField]public int activeCamera = 0;
+    [SerializeField] public int currentPlayerTool = 0;
     private void Awake()
     {
         if (instance == null)

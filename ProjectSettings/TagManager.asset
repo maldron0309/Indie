@@ -10,6 +10,7 @@ TagManager:
   - Ring
   - Respawns
   - CheckPoint
+  - platform
   layers:
   - Default
   - TransparentFX
