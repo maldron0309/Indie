@@ -195,11 +195,9 @@ public class Movement : MonoBehaviour
             // playerAnimator.SetBool("isJumping", false); // Uncomment if needed
         }
 
-<<<<<<< HEAD
-        if (Input.GetKeyDown(KeyCode.Space) && jumpsRestants>=0 && stayInFlood()) 
-=======
-        if (Input.GetKeyDown(KeyCode.Space) && jumpsRestants > 0)
->>>>>>> f89a45955a59746bd4d1ef245066b895690677ee
+
+        if (Input.GetKeyDown(KeyCode.Space) && jumpsRestants>=0 && IsOnGround()) 
+
         {
             jumpsRestants--;
             rigidbody.velocity = new Vector2(rigidbody.velocity.x, 0f);
@@ -285,7 +283,7 @@ public class Movement : MonoBehaviour
     private void HandleMovement()
     {
         float inputMovimiento = Input.GetAxis("Horizontal");
-<<<<<<< HEAD
+
         //rigidbody.velocity = new Vector2(inputMovimiento * velocidad, rigidbody.velocity.y);
         Vector2 targetVelocity = new Vector2(inputMovimiento * velocidad, rigidbody.velocity.y);
         Vector2 currentVelocity = rigidbody.velocity;
@@ -293,12 +291,7 @@ public class Movement : MonoBehaviour
         rigidbody.AddForce((targetVelocity - currentVelocity) /** velocidad*/);
         GestionarOrientacion(inputMovimiento);
 
-=======
-        rigidbody.velocity = new Vector2(inputMovimiento * velocidad, rigidbody.velocity.y);
-        HandleOrientation(inputMovimiento);
 
-        // Play walking sound if the player is moving and not in mid air
->>>>>>> f89a45955a59746bd4d1ef245066b895690677ee
         if (!AudioManager.instance.FootStepsSource.isPlaying && !isMidAir && inputMovimiento != 0)
         {
             AudioManager.instance.PlayFootSteps("WalkLoop");
@@ -309,18 +302,12 @@ public class Movement : MonoBehaviour
         }
     }
 
-<<<<<<< HEAD
+
 
 
     void GestionarOrientacion(float inputMovimiento) {
         if( (WatchRight == true && inputMovimiento > 0)|| (WatchRight == false && inputMovimiento < 0) ){
-=======
-    // This function handles the player's orientation based on movement direction
-    private void HandleOrientation(float inputMovimiento)
-    {
-        if ((WatchRight == true && inputMovimiento > 0) || (WatchRight == false && inputMovimiento < 0))
-        {
->>>>>>> f89a45955a59746bd4d1ef245066b895690677ee
+
             WatchRight = !WatchRight;
             transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
         }
