@@ -13,9 +13,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private int health;
     [SerializeField] private float damageDelay; //seconds before player can be damaged again
     [SerializeField] private TMP_Text coinCounter;
-    [SerializeField] private AudioSource audioWalk;
-    [SerializeField] private AudioSource audioJump;
-    [SerializeField] private AudioSource audioDeath;
+
 
     private int runsRemaining;
     private Camera mainCam;
@@ -40,15 +38,17 @@ public class Movement : MonoBehaviour
     private bool run = true;
     private bool runing = true;
 
+    private bool rightStep = true;
+
     // Start is called before
     // the first frame update
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
-        audioWalk = GetComponent<AudioSource>();
-        audioJump = GetComponent<AudioSource>();
-        audioDeath = GetComponent<AudioSource>();
+     //   audioWalk = GetComponent<AudioSource>();
+       // audioJump = GetComponent<AudioSource>();
+       // audioDeath = GetComponent<AudioSource>();
         jumpsRestants = jumpsMax;
         movementScript = GetComponent<Movement>();
         mainCam = Camera.main;
@@ -76,7 +76,15 @@ public class Movement : MonoBehaviour
             // Calcular la rotación hacia la posición del mouse
             Vector2 direction = mousePos - transform.position;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
+            
+            //if (rightStep)
+            //{
+            //    AudioManager.instance.PlayFootSteps("WalkRight");
+            //}
+            //else
+            //{
+            //    AudioManager.instance.PlayFootSteps("WalkLeft");
+            //}
             // Aplicar la rotación al objeto
             //transform.rotation = Quaternion.Euler(0f, 0f, angle);
         }
@@ -100,8 +108,8 @@ public class Movement : MonoBehaviour
             jumpsRestants--;
             rigidbody.velocity = new Vector2(rigidbody.velocity.x, 0f);
             rigidbody.AddForce(Vector2.up * forceJump, ForceMode2D.Impulse);
-
-            audioJump.Play();
+            AudioManager.instance.FootStepsSource.Stop();
+            //audioJump.Play();
         }
     
     }
@@ -161,7 +169,7 @@ public class Movement : MonoBehaviour
         {
             //SceneManager.LoadScene("GameOverScene"); //For when we get a game over screen/UI
             Destroy(gameObject); //Destroy self (temporary)
-            audioDeath.Play();
+            //audioDeath.Play();
             Debug.Log("dead");
 
         }
@@ -177,23 +185,13 @@ public class Movement : MonoBehaviour
         rigidbody.velocity = new Vector2(inputMovimiento * velocidad, rigidbody.velocity.y);
         GestionarOrientacion(inputMovimiento);
 
-        if (audioWalk.isPlaying)
+        if (!AudioManager.instance.FootStepsSource.isPlaying&& !isMidAir && inputMovimiento != 0)
         {
-
+            AudioManager.instance.PlayFootSteps("WalkLoop");
         }
-        else
+        if (inputMovimiento == 0)
         {
-            if (isMidAir == false)
-            {
-                if (inputMovimiento == 0)
-                {
-                    audioWalk.Stop();
-                }
-                else
-                {
-                    audioWalk.Play();
-                }
-            }
+            AudioManager.instance.FootStepsSource.Stop();
         }
     }
 
