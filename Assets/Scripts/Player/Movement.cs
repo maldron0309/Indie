@@ -14,7 +14,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private float damageDelay; //seconds before player can be damaged again
     [SerializeField] private TMP_Text coinCounter;
 
-
+    public Animator playerAnimator;
     private int runsRemaining;
     private Camera mainCam;
     private Vector3 mousePos;
@@ -88,7 +88,7 @@ public class Movement : MonoBehaviour
             // Aplicar la rotación al objeto
             //transform.rotation = Quaternion.Euler(0f, 0f, angle);
         }
-        
+        playerAnimator.SetFloat("Speed", Mathf.Abs(horizontalInput));
     }
 
     bool stayInFlood() {

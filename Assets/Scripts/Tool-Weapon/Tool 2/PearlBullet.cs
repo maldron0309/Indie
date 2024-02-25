@@ -17,6 +17,7 @@ public class PearlBullet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        AudioManager.instance.PlaySfx("Impact");
         Player = GameObject.FindGameObjectWithTag("player");
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         rb = GetComponent<Rigidbody2D>();
@@ -48,6 +49,7 @@ public class PearlBullet : MonoBehaviour
 
     private void destroyEvent()
     {
+        AudioManager.instance.PlaySfx("Negative");
         Instantiate(brealParticles, gameObject.transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
