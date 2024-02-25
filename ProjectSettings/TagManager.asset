@@ -11,6 +11,7 @@ TagManager:
   - Respawns
   - CheckPoint
   - platform
+  - spike
   layers:
   - Default
   - TransparentFX

@@ -105,7 +105,7 @@ public class Movement : MonoBehaviour
             // playerAnimator.SetBool("isJumping", false);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && jumpsRestants>0) 
+        if (Input.GetKeyDown(KeyCode.Space) && jumpsRestants>=0 && stayInFlood()) 
         {
             jumpsRestants--;
             rigidbody.velocity = new Vector2(rigidbody.velocity.x, 0f);
@@ -186,10 +186,14 @@ public class Movement : MonoBehaviour
     void mecanicaMovimiento()
     {
         float inputMovimiento = Input.GetAxis("Horizontal");
-        rigidbody.velocity = new Vector2(inputMovimiento * velocidad, rigidbody.velocity.y);
+        //rigidbody.velocity = new Vector2(inputMovimiento * velocidad, rigidbody.velocity.y);
+        Vector2 targetVelocity = new Vector2(inputMovimiento * velocidad, rigidbody.velocity.y);
+        Vector2 currentVelocity = rigidbody.velocity;
+
+        rigidbody.AddForce((targetVelocity - currentVelocity) /** velocidad*/);
         GestionarOrientacion(inputMovimiento);
 
-        if (!AudioManager.instance.FootStepsSource.isPlaying&& !isMidAir && inputMovimiento != 0)
+        if (!AudioManager.instance.FootStepsSource.isPlaying && !isMidAir && inputMovimiento != 0)
         {
             AudioManager.instance.PlayFootSteps("WalkLoop");
         }
@@ -198,6 +202,7 @@ public class Movement : MonoBehaviour
             AudioManager.instance.FootStepsSource.Stop();
         }
     }
+
 
 
     void GestionarOrientacion(float inputMovimiento) {

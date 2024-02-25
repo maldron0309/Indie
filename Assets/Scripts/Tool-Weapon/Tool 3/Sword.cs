@@ -2,21 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnderPearl : MonoBehaviour
+public class Sword : MonoBehaviour
 {
+    public Animator swordAnimator;
     public GameObject Player;
+    public GameObject boxCollider2D;
     private Camera mainCam;
     private Vector3 mousePos;
-    public GameObject bullet;
+    private Vector3 newPosition;
     public Transform bulletTransform;
     public bool canFire;
     public float timer;
     public float timerBetweenFiring;
     public int ammo = 2;
+    private bool colActive = false;
+    [SerializeField] private float offsetX = 0;
+    [SerializeField] private float offsetY = 0;
+    [SerializeField] private float offsetZ = 0;
+
 
     void Start()
     {
         mainCam = Camera.main;
+        
     }
 
     void Update()
@@ -38,17 +46,17 @@ public class EnderPearl : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButtonDown(0) && canFire && ammo > 0)
+        if (Input.GetMouseButtonDown(0) && canFire)
         {
+            swordAnimator.SetTrigger("Swing");
+            AudioManager.instance.PlaySfx("SwordSwing");
             canFire = false;
-            Instantiate(bullet, bulletTransform.position, Quaternion.identity);
-            ammo --;
+           
+            boxCollider2D.SetActive(true);
+            ammo--;
         }
 
-        gameObject.transform.position = Player.transform.position;
-    }
-    private void OnEnable()
-    {
-        ammo = 2;
+        newPosition = new Vector3(Player.transform.position.x + offsetX, Player.transform.position.y + offsetY, Player.transform.position.z +offsetZ);
+        gameObject.transform.position = newPosition;
     }
 }
