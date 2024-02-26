@@ -128,7 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   force: 10
   damage: 100
-  magnitude: 22
+  magnitude: 5
   brealParticles: {fileID: 8108071738254054218, guid: 3056f6895f91ed9488d2cce12a1d964c, type: 3}
   destroyTime: 1
 --- !u!58 &6155330361668522011
@@ -165,4 +165,4 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0.01, y: -0.02}
   serializedVersion: 2
-  m_Radius: 0.06
+  m_Radius: 0.09

@@ -12,6 +12,7 @@ TagManager:
   - CheckPoint
   - platform
   - spike
+  - playertrigger
   layers:
   - Default
   - TransparentFX
