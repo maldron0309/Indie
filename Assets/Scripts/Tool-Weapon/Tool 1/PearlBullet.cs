@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class PearlBullet : MonoBehaviour
 {
+    private Rigidbody2D playerRb;
     private GameObject Player;
     private Vector3 mousePos;
     private Camera mainCam;
     private Rigidbody2D rb;
     public float force;
     public int damage = 100;
+    public int magnitude = 15;
     public GameObject brealParticles;
     [SerializeField] private float destroyTime = 1f;
    
@@ -19,6 +21,7 @@ public class PearlBullet : MonoBehaviour
     {
         AudioManager.instance.PlaySfx("PearlThrow");
         Player = GameObject.FindGameObjectWithTag("player");
+        playerRb = Player.GetComponent<Rigidbody2D>();
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         rb = GetComponent<Rigidbody2D>();
         mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
@@ -53,6 +56,7 @@ public class PearlBullet : MonoBehaviour
                 Player.transform.position = gameObject.transform.position;
                 print("Yup");
                 AudioManager.instance.PlaySfx("PearlLand");
+                playerRb.AddForce(Vector3.forward * magnitude * rb.velocity, ForceMode2D.Impulse);
             }
             destroyEvent();
         }

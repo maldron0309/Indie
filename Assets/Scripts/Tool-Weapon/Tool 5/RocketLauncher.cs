@@ -67,6 +67,10 @@ public class RocketLauncher : MonoBehaviour
         //
         gameObject.transform.position = Player.transform.position;
         print(angle);
+        if (ammo <= 0)
+        {
+            gameObject.SetActive(false);
+        }
 
     }
 
