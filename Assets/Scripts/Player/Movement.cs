@@ -84,6 +84,11 @@ public class Movement : MonoBehaviour
             HandleRun();
         }
 
+        if (IsOnGround())
+        {
+          
+        }
+
         isMidAir = !IsOnGround();
         // playerAnimator.SetBool("isFalling", isMidAir); // Uncomment if needed
 
@@ -98,6 +103,7 @@ public class Movement : MonoBehaviour
             if (rigidbody.velocity.magnitude > 0.1f)
             {
                 // El personaje está caminando o corriendo
+                playerAnimator.SetBool("GROUNDED", false);
                 playerAnimator.SetBool("isWalking", true);
                 playerAnimator.SetBool("isJumping", false);
                 playerAnimator.SetBool("isLanding", false);
@@ -106,6 +112,7 @@ public class Movement : MonoBehaviour
             else
             {
                 // El personaje está en reposo
+                playerAnimator.SetBool("GROUNDED", false);
                 playerAnimator.SetBool("isWalking", false);
                 playerAnimator.SetBool("isJumping", false);
                 playerAnimator.SetBool("isLanding", false);
@@ -114,25 +121,35 @@ public class Movement : MonoBehaviour
 
 
 
-        else
-        {
+       
+        
             // El personaje está en el aire, por lo tanto, está saltando o cayendo
-            if (currentYPosition > previousYPosition && rigidbody.velocity.y > 0.02)
+         if (currentYPosition > previousYPosition && rigidbody.velocity.y > 0.02)
             {
-                // El personaje está subiendo
-                playerAnimator.SetBool("isJumping", true);
-                playerAnimator.SetBool("isLanding", false);
-                playerAnimator.SetBool("isWalking", false);
+            // El personaje está subiendo
+            playerAnimator.SetBool("GROUNDED", false);
+            playerAnimator.SetBool("isJumping", true);
+             playerAnimator.SetBool("isLanding", false);
+             playerAnimator.SetBool("isWalking", false);
 
             }
-            else if (currentYPosition < previousYPosition)
+         if (currentYPosition < previousYPosition)
             {
-                // El personaje está cayendo
-                playerAnimator.SetBool("isJumping", false);
-                playerAnimator.SetBool("isLanding", true);
-                playerAnimator.SetBool("isWalking", false);
+            // El personaje está cayendo
+            playerAnimator.SetBool("GROUNDED", false);
+            playerAnimator.SetBool("isJumping", false);
+             playerAnimator.SetBool("isLanding", true);
+             playerAnimator.SetBool("isWalking", false);
+
+            
             }
+        if (IsOnGround())
+        {
+            Debug.Log("LAND ANIMATION");
+            playerAnimator.SetBool("GROUNDED", true);
         }
+
+
 
         if (Mathf.Abs(rigidbody.velocity.x) > 0.1f)
         {
@@ -187,9 +204,13 @@ public class Movement : MonoBehaviour
 
     private bool IsOnGround()
     {
-        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, new Vector2(boxCollider.bounds.size.x, boxCollider.bounds.size.y), 0f, Vector2.down, 0.2f, MaskFlood);
+        RaycastHit2D raycastHit = Physics2D.Raycast(transform.position, Vector2.down, 1f, MaskFlood);
+       
         return raycastHit.collider != null;
+        
     }
+
+
 
     private void HandleJump()
     {
