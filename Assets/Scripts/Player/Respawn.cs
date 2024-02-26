@@ -12,7 +12,7 @@ public class Respawn : MonoBehaviour
         if (other.gameObject.CompareTag("player"))
         {
             player.transform.position = respawnPoint.transform.position;
-            GameManager.instance.playerDied = true; 
+            GameManager.instance.playerDied = true;
         }
     }
 
