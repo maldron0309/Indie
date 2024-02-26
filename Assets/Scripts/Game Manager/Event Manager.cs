@@ -8,29 +8,36 @@ public class EventManager : MonoBehaviour
     public Animator blackScreen;
     public Animator toolTransition;
     public SpriteRenderer playerSpriteRenderer;
+    public Rigidbody2D playerRB;
     [SerializeField]private int randomNum;
 
     public GameObject[] tools;
     public GameObject tool0;
     public GameObject tool1;
     public GameObject tool2;
+    public GameObject tool3;
     IEnumerator ToolChange;
 
     // Start is called before the first frame update
     void Start()
     {
+        playerRB.velocity = Vector3.zero;
+        
         ToolChange = ToolChangeCorrutine();
         FadeOutFunction();
         GameManager.instance.currentPlayerTool = randomNum;
+        GameManager.instance.playerCanInput = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        randomNum = Random.Range(0, 3);
+        randomNum = Random.Range(0, 4);
         if (GameManager.instance.playerDied)
         {
+            GameManager.instance.playerCanInput = false;
             FadeDeathAnimation();
+            playerRB.velocity = Vector3.zero;
             GameManager.instance.playerDied = false;
             StartCoroutine(ToolChange);
         }
@@ -41,6 +48,7 @@ public class EventManager : MonoBehaviour
     {
         while (true)
         {
+            
             print("corrutine");
             DisableAllTools();
             
@@ -51,6 +59,8 @@ public class EventManager : MonoBehaviour
             GameManager.instance.currentPlayerTool = randomNum;
             EnableTool(GameManager.instance.currentPlayerTool);
 
+            GameManager.instance.playerCanInput = true;
+           
             StopCoroutine(ToolChange);
             yield return null;
         }
@@ -62,6 +72,7 @@ public class EventManager : MonoBehaviour
             tool0.SetActive(false);
             tool1.SetActive(false);
             tool2.SetActive(false);
+            tool3.SetActive(false);
         }
     }
     void EnableTool(int toolNum)

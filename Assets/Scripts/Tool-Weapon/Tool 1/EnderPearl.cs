@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAimWeapon : MonoBehaviour
+public class EnderPearl : MonoBehaviour
 {
     public GameObject Player;
     private Camera mainCam;
@@ -12,6 +12,7 @@ public class PlayerAimWeapon : MonoBehaviour
     public bool canFire;
     public float timer;
     public float timerBetweenFiring;
+    public int ammo = 2;
 
     void Start()
     {
@@ -37,14 +38,21 @@ public class PlayerAimWeapon : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButtonDown(0) && canFire)
+        if (Input.GetMouseButtonDown(0) && canFire && ammo > 0)
         {
             canFire = false;
             Instantiate(bullet, bulletTransform.position, Quaternion.identity);
+            ammo --;
         }
 
         gameObject.transform.position = Player.transform.position;
+        if (ammo <= 0)
+        {
+            gameObject.SetActive(false);
+        }
     }
-
-
+    private void OnEnable()
+    {
+        ammo = 2;
+    }
 }

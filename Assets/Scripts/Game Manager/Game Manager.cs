@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]public int activeCamera = 0;
     [SerializeField] public int currentPlayerTool = 0;
     [SerializeField] public bool playerDied;
+    [SerializeField] public bool playerCanInput = true;
     private void Awake()
     {
         if (instance == null)

@@ -77,9 +77,12 @@ public class Movement : MonoBehaviour
 
     private void Update()
     {
-        HandleMovement();
-        HandleJump();
-        HandleRun();
+        if (GameManager.instance.playerCanInput)
+        {
+            HandleMovement();
+            HandleJump();
+            HandleRun();
+        }
 
         isMidAir = !IsOnGround();
         // playerAnimator.SetBool("isFalling", isMidAir); // Uncomment if needed
@@ -150,6 +153,7 @@ public class Movement : MonoBehaviour
 
     private void HandleMouseDirection()
     {
+        
         float horizontalInput = Input.GetAxis("Horizontal");
         if (horizontalInput != 0)
         {
