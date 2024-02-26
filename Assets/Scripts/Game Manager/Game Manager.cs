@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] public int currentPlayerTool = 0;
     [SerializeField] public bool playerDied;
     [SerializeField] public bool playerCanInput = true;
+    [SerializeField] public bool weaponChange = true;
     private void Awake()
     {
         if (instance == null)

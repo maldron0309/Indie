@@ -18,6 +18,7 @@ public class EventManager : MonoBehaviour
     public GameObject tool2;
     public GameObject tool3;
     public GameObject tool4;
+    IEnumerator DeathToolChange;
     IEnumerator ToolChange;
 
     // Start is called before the first frame update
@@ -25,6 +26,7 @@ public class EventManager : MonoBehaviour
     {
         playerRB.velocity = Vector3.zero;
         
+        DeathToolChange = DeathToolChangeCorrutine();
         ToolChange = ToolChangeCorrutine();
         FadeOutFunction();
         GameManager.instance.currentPlayerTool = randomNum;
@@ -41,17 +43,21 @@ public class EventManager : MonoBehaviour
             FadeDeathAnimation();
             playerRB.velocity = Vector3.zero;
             GameManager.instance.playerDied = false;
+            StartCoroutine(DeathToolChange);
+        }
+        if (GameManager.instance.weaponChange)
+        {
             StartCoroutine(ToolChange);
+            GameManager.instance.weaponChange = false;
         }
 
     }
     
-    IEnumerator ToolChangeCorrutine()
+    IEnumerator DeathToolChangeCorrutine()
     {
         while (true)
         {
-            
-            print("corrutine");
+           
             DisableAllTools();
             
             yield return new WaitForSeconds(0.833f);
@@ -63,6 +69,28 @@ public class EventManager : MonoBehaviour
 
             GameManager.instance.playerCanInput = true;
            
+            StopCoroutine(DeathToolChange);
+            yield return null;
+        }
+    }
+    IEnumerator ToolChangeCorrutine()
+    {
+        while (true)
+        {
+
+            DisableAllTools();
+
+            toolTransition.Play("Transform");
+            AudioManager.instance.PlaySfx("Transform");
+            yield return new WaitForSeconds(0.833f);
+
+            toolTransition.Play("Transform");
+            AudioManager.instance.PlaySfx("Transform");
+            yield return new WaitForSeconds(0.833f);
+
+            GameManager.instance.currentPlayerTool = randomNum;
+            EnableTool(GameManager.instance.currentPlayerTool);
+
             StopCoroutine(ToolChange);
             yield return null;
         }

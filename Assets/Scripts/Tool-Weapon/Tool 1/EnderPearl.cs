@@ -13,6 +13,11 @@ public class EnderPearl : MonoBehaviour
     public float timer;
     public float timerBetweenFiring;
     public int ammo = 2;
+    private Vector3 newPosition;
+
+    [SerializeField] private float offsetX = 0;
+    [SerializeField] private float offsetY = 0;
+    [SerializeField] private float offsetZ = 0;
 
     void Start()
     {
@@ -44,8 +49,8 @@ public class EnderPearl : MonoBehaviour
             Instantiate(bullet, bulletTransform.position, Quaternion.identity);
             ammo --;
         }
-
-        gameObject.transform.position = Player.transform.position;
+        newPosition = new Vector3(Player.transform.position.x + offsetX, Player.transform.position.y + offsetY, Player.transform.position.z + offsetZ);
+        gameObject.transform.position = newPosition;
         if (ammo <= 0)
         {
             gameObject.SetActive(false);
