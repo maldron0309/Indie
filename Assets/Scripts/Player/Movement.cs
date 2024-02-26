@@ -89,7 +89,7 @@ public class Movement : MonoBehaviour
 
         float currentYPosition = transform.position.y;
 
-                // Comprobar si el personaje está en el suelo (no está subiendo ni cayendo)
+        // Comprobar si el personaje está en el suelo (no está subiendo ni cayendo)
         if (Mathf.Approximately(rigidbody.velocity.y, 0f))
         {
             if (rigidbody.velocity.magnitude > 0.1f)
@@ -196,7 +196,7 @@ public class Movement : MonoBehaviour
         }
 
 
-        if (Input.GetKeyDown(KeyCode.Space) && jumpsRestants>=0 && IsOnGround()) 
+        if (Input.GetKeyDown(KeyCode.Space) && jumpsRestants >= 0 && IsOnGround())
 
         {
             jumpsRestants--;
@@ -305,8 +305,10 @@ public class Movement : MonoBehaviour
 
 
 
-    void GestionarOrientacion(float inputMovimiento) {
-        if( (WatchRight == true && inputMovimiento > 0)|| (WatchRight == false && inputMovimiento < 0) ){
+    void GestionarOrientacion(float inputMovimiento)
+    {
+        if ((WatchRight == true && inputMovimiento > 0) || (WatchRight == false && inputMovimiento < 0))
+        {
 
             WatchRight = !WatchRight;
             transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
