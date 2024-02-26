@@ -44,7 +44,7 @@ public class EventManager : MonoBehaviour
             playerRB.velocity = Vector3.zero;
             GameManager.instance.playerDied = false;
             StartCoroutine(DeathToolChange);
-        }
+        }else
         if (GameManager.instance.weaponChange)
         {
             StartCoroutine(ToolChange);
@@ -79,10 +79,6 @@ public class EventManager : MonoBehaviour
         {
 
             DisableAllTools();
-
-            toolTransition.Play("Transform");
-            AudioManager.instance.PlaySfx("Transform");
-            yield return new WaitForSeconds(0.833f);
 
             toolTransition.Play("Transform");
             AudioManager.instance.PlaySfx("Transform");

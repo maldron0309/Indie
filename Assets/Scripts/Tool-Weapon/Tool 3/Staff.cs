@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Staff : MonoBehaviour
 {
-    //public Animator staffAnimator;
+    public GameObject spawnParticles;
     public GameObject Player;
     //public GameObject boxCollider2D;
     private Camera mainCam;
@@ -14,7 +14,7 @@ public class Staff : MonoBehaviour
     public bool canFire;
     public float timer;
     public float timerBetweenFiring;
-    public int ammo = 2;
+   
     private bool colActive = false;
     [SerializeField] private float offsetX = 0;
     [SerializeField] private float offsetY = 0;
@@ -24,7 +24,8 @@ public class Staff : MonoBehaviour
     [SerializeField] public float angle2;
 
     [SerializeField] private int magnitude = 20;
-
+    [SerializeField] public int ammo = 1;
+    [SerializeField] public int resetAmmo = 1;
     public Rigidbody2D playerRigidbody;
 
     void Start()
@@ -55,7 +56,7 @@ public class Staff : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && canFire)
         {
             //staffAnimator.SetTrigger("");
-            AudioManager.instance.PlaySfx("SwordSwing");
+            AudioManager.instance.PlaySfx("PearlLand");
             canFire = false;
             dashFunction();
            // boxCollider2D.SetActive(true);
@@ -64,6 +65,10 @@ public class Staff : MonoBehaviour
 
         newPosition = new Vector3(Player.transform.position.x + offsetX, Player.transform.position.y + offsetY, Player.transform.position.z + offsetZ);
         gameObject.transform.position = newPosition;
+        if (ammo <= 0)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     void dashFunction()
@@ -75,5 +80,17 @@ public class Staff : MonoBehaviour
         playerRigidbody.velocity = new Vector2(0.1f, 0.1f);
         playerRigidbody.AddForce(forceVector, ForceMode2D.Impulse);
         //gameObject.SetActive(false);
+    }
+    private void OnEnable()
+    {
+        ammo = resetAmmo;
+        Instantiate(spawnParticles, Player.transform.position, Quaternion.identity);
+        AudioManager.instance.PlaySfx("TransformEnd");
+    }
+    private void OnDisable()
+    {
+       
+        Instantiate(spawnParticles, Player.transform.position, Quaternion.identity);
+        //AudioManager.instance.PlaySfx("TransformEnd");
     }
 }

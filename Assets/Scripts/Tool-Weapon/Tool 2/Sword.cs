@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Sword : MonoBehaviour
 {
+    public GameObject spawnParticles;
     public GameObject SwordSprite;
     public Animator swordAnimator;
     public GameObject Player;
@@ -15,7 +16,8 @@ public class Sword : MonoBehaviour
     public bool canFire;
     public float timer;
     public float timerBetweenFiring;
-    public int ammo = 2;
+    [SerializeField]public int ammo = 999;
+    [SerializeField] public int resetAmmo = 2;
     private bool colActive = false;
     [SerializeField] private float offsetX = 0;
     [SerializeField] private float offsetY = 0;
@@ -59,13 +61,20 @@ public class Sword : MonoBehaviour
 
         newPosition = new Vector3(Player.transform.position.x + offsetX, Player.transform.position.y + offsetY, Player.transform.position.z +offsetZ);
         gameObject.transform.position = newPosition;
+        if (ammo <= 0)
+        {
+            gameObject.SetActive(false);
+        }
     }
     private void OnEnable()
     {
-        //SwordSprite.transform.rotation = Quaternion.Euler(new Vector3(0, 0, -90));
+        ammo = resetAmmo;
+        Instantiate(spawnParticles, Player.transform.position, Quaternion.identity);
+        AudioManager.instance.PlaySfx("TransformEnd");
     }
     private void OnDisable()
     {
-       // SwordSprite.transform.rotation = Quaternion.Euler(new Vector3(0, 0, -90));
+        Instantiate(spawnParticles, Player.transform.position, Quaternion.identity);
+        //AudioManager.instance.PlaySfx("TransformEnd");
     }
 }

@@ -34,7 +34,7 @@ public class SwordCollision : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         
-                 if (collision.gameObject.CompareTag("spike"))
+                 if (collision.gameObject.CompareTag("spike")|| collision.gameObject.CompareTag("platform"))
                  {
                           angle1 = Mathf.Cos(sword.transform.rotation.eulerAngles.z * Mathf.Deg2Rad) * magnitude;
                           angle2 = Mathf.Sin(sword.transform.rotation.eulerAngles.z * Mathf.Deg2Rad) * magnitude;

@@ -1,15 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
-public class PlayerAimWeapon : MonoBehaviour
+public class RocketLauncher : MonoBehaviour
 {
     public GameObject spawnParticles;
     public GameObject Player;
     private Camera mainCam;
     private Vector3 mousePos;
     private Vector3 bulletSpawnPos;
-    [SerializeField]private float offsetX;
+    [SerializeField] private float offsetX;
     [SerializeField] private float offsetY;
     [SerializeField] private float offsetZ;
     public GameObject bullet;
@@ -20,10 +21,11 @@ public class PlayerAimWeapon : MonoBehaviour
     public bool switched = false;
     [SerializeField] public int ammo = 20;
     [SerializeField] public int resetAmmo = 20;
+
     void Start()
     {
         mainCam = Camera.main;
-        bulletSpawnPos = new Vector3(bulletTransform.transform.position.x +offsetX, bulletTransform.transform.position.y +offsetY, bulletTransform.transform.position.z + offsetZ);
+        bulletSpawnPos = new Vector3(bulletTransform.transform.position.x + offsetX, bulletTransform.transform.position.y + offsetY, bulletTransform.transform.position.z + offsetZ);
     }
 
     void Update()
@@ -61,23 +63,17 @@ public class PlayerAimWeapon : MonoBehaviour
         {
             bulletTransform.localScale = new Vector2(bulletTransform.localScale.x, -0.7f);
         }
-        
+
         //
         gameObject.transform.position = Player.transform.position;
         print(angle);
-        
-        if (ammo <= 0)
-        {
-            gameObject.SetActive(false);
-        }
-        
+
     }
-    
+
     private void OnEnable()
     {
         ammo = resetAmmo;
         Instantiate(spawnParticles, Player.transform.position, Quaternion.identity);
-        AudioManager.instance.PlaySfx("TransformEnd");
     }
     private void OnDisable()
     {

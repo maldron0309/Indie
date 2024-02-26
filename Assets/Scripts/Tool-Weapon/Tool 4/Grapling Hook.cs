@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GraplingHook : MonoBehaviour
 {
+    public GameObject spawnParticles;
     public LineRenderer lineRenderer;
     public DistanceJoint2D distanceJoint2D;
 
@@ -23,7 +24,8 @@ public class GraplingHook : MonoBehaviour
     public bool canFire;
     public float timer;
     public float timerBetweenFiring;
-    public int ammo = 2;
+    [SerializeField] public int ammo = 2;
+    [SerializeField] public int resetAmmo = 2;
     private bool colActive = false;
     private bool hasFired = false;
     [SerializeField] private float offsetX = 0;
@@ -87,7 +89,7 @@ public class GraplingHook : MonoBehaviour
             mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
 
             //staffAnimator.SetTrigger("");
-            AudioManager.instance.PlaySfx("SwordSwing");
+            AudioManager.instance.PlaySfx("HookShoot");
             canFire = false;
 
             
@@ -98,13 +100,14 @@ public class GraplingHook : MonoBehaviour
             }
 
             // boxCollider2D.SetActive(true);
-            ammo--;
+            
         }
         else if (Input.GetKeyUp(KeyCode.Mouse0))
         {
             distanceJoint2D.enabled = false;
             lineRenderer.enabled = false;
             hasFired = false;
+            ammo--;
         }
         //else if (distanceJoint2D.enabled)
         //{
@@ -130,6 +133,10 @@ public class GraplingHook : MonoBehaviour
         }
         newPosition = new Vector3(player.transform.position.x + offsetX, player.transform.position.y + offsetY, player.transform.position.z + offsetZ);
         gameObject.transform.position = newPosition;
+        if (ammo <= 0)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     //void dashFunction()
@@ -142,5 +149,18 @@ public class GraplingHook : MonoBehaviour
     //    playerRigidbody.AddForce(forceVector);
     //    //gameObject.SetActive(false);
     //}
+    private void OnEnable()
+    {
+        ammo = resetAmmo;
+        Instantiate(spawnParticles, player.transform.position, Quaternion.identity);
+        AudioManager.instance.PlaySfx("TransformEnd");
+    }
+    private void OnDisable()
+    {
+        distanceJoint2D.enabled = false;
+        lineRenderer.enabled = false;
+        Instantiate(spawnParticles, player.transform.position, Quaternion.identity);
+        //AudioManager.instance.PlaySfx("TransformEnd");
+    }
 }
 

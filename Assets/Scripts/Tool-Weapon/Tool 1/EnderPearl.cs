@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnderPearl : MonoBehaviour
 {
+    public GameObject spawnParticles;
     public GameObject Player;
     private Camera mainCam;
     private Vector3 mousePos;
@@ -12,7 +13,7 @@ public class EnderPearl : MonoBehaviour
     public bool canFire;
     public float timer;
     public float timerBetweenFiring;
-    public int ammo = 2;
+    [SerializeField]public int ammo = 2;
     private Vector3 newPosition;
 
     [SerializeField] private float offsetX = 0;
@@ -59,5 +60,14 @@ public class EnderPearl : MonoBehaviour
     private void OnEnable()
     {
         ammo = 2;
+        
+        Instantiate(spawnParticles, Player.transform.position, Quaternion.identity);
+        AudioManager.instance.PlaySfx("TransformEnd");
+    }
+    private void OnDisable()
+    {
+        
+        Instantiate(spawnParticles, Player.transform.position, Quaternion.identity);
+        //AudioManager.instance.PlaySfx("TransformEnd");
     }
 }

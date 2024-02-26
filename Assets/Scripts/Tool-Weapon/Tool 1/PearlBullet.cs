@@ -17,7 +17,7 @@ public class PearlBullet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        AudioManager.instance.PlaySfx("Impact");
+        AudioManager.instance.PlaySfx("PearlThrow");
         Player = GameObject.FindGameObjectWithTag("player");
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         rb = GetComponent<Rigidbody2D>();
