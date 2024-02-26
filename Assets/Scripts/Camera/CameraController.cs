@@ -10,6 +10,12 @@ public class CameraController : MonoBehaviour
     public CinemachineVirtualCamera camera1;
     public CinemachineVirtualCamera camera2;
     public CinemachineVirtualCamera camera3;
+    public CinemachineVirtualCamera camera4;
+    public CinemachineVirtualCamera camera5;
+    public CinemachineVirtualCamera camera6;
+    public CinemachineVirtualCamera camera7;
+    public CinemachineVirtualCamera camera8;
+    public CinemachineVirtualCamera camera9;
 
     public CinemachineVirtualCamera startCamera;
     private CinemachineVirtualCamera currentCam;
