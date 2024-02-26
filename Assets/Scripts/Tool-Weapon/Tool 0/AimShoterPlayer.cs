@@ -50,28 +50,22 @@ public class PlayerAimWeapon : MonoBehaviour
             canFire = false;
             Instantiate(bullet, bulletSpawnPos, Quaternion.Euler(270, 0, 270));
         }
-
-        Orientation(angle);
+        //
+        if ((transform.rotation.eulerAngles.z >= 0f && transform.rotation.eulerAngles.z <= 90f) || (transform.rotation.eulerAngles.z >= 270f && transform.rotation.eulerAngles.z <= 360f))
+        {
+            bulletTransform.localScale = new Vector2(bulletTransform.localScale.x, 0.7f);
+        }
+        else
+        {
+            bulletTransform.localScale = new Vector2(bulletTransform.localScale.x, -0.7f);
+        }
+        
+        //
         gameObject.transform.position = Player.transform.position;
         print(angle);
         
     }
-    void Orientation(float angle)
-    {
-      
-        if (angle > -90f && angle < 90f&& !switched)
-        {
-            
-            bulletTransform.localScale = new Vector2(bulletTransform.localScale.x, bulletTransform.localScale.y);
-            switched = true;
-        }
-        if (angle < -90f && angle > 90f && switched)
-        {
-
-            bulletTransform.localScale = new Vector2(bulletTransform.localScale.x, -bulletTransform.localScale.y);
-            switched = false;
-        }
-    }
+    
     private void OnEnable()
     {
         Instantiate(spawnParticles, Player.transform.position, Quaternion.identity);

@@ -10,12 +10,14 @@ public class EventManager : MonoBehaviour
     public SpriteRenderer playerSpriteRenderer;
     public Rigidbody2D playerRB;
     [SerializeField]private int randomNum;
+    [SerializeField] private int numberOfTools;
 
     public GameObject[] tools;
     public GameObject tool0;
     public GameObject tool1;
     public GameObject tool2;
     public GameObject tool3;
+    public GameObject tool4;
     IEnumerator ToolChange;
 
     // Start is called before the first frame update
@@ -32,7 +34,7 @@ public class EventManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        randomNum = Random.Range(0, 4);
+        randomNum = Random.Range(0, numberOfTools);
         if (GameManager.instance.playerDied)
         {
             GameManager.instance.playerCanInput = false;
@@ -69,10 +71,7 @@ public class EventManager : MonoBehaviour
     {
         for (int i = 0; i < tools.Length; i++)
         {
-            tool0.SetActive(false);
-            tool1.SetActive(false);
-            tool2.SetActive(false);
-            tool3.SetActive(false);
+            tools[i].SetActive(false);
         }
     }
     void EnableTool(int toolNum)

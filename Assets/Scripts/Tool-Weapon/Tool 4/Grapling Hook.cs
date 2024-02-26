@@ -16,6 +16,7 @@ public class GraplingHook : MonoBehaviour
     //public GameObject boxCollider2D;
     private Camera mainCam;
     private Vector3 mousePos;
+    private Vector3 mousePos2;
     private Vector3 clickedMousePos;
     private Vector3 newPosition;
     public Transform bulletTransform;
@@ -45,12 +46,13 @@ public class GraplingHook : MonoBehaviour
 
     void Update()
     {
-        
+        if (!hasFired) { 
+              mousePos2 = mainCam.ScreenToWorldPoint(Input.mousePosition);
+             Vector2 direction = mousePos2 - transform.position;
+             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        Vector2 direction = mousePos - transform.position;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
-        transform.rotation = Quaternion.Euler(0f, 0f, angle);
+            transform.rotation = Quaternion.Euler(0f, 0f, angle);
+        }
 
         if (!canFire)
         {
@@ -117,19 +119,28 @@ public class GraplingHook : MonoBehaviour
         {
             //dashFunction();
         }
+
+        if ((transform.rotation.eulerAngles.z >= 0f && transform.rotation.eulerAngles.z <= 90f) || (transform.rotation.eulerAngles.z >= 270f && transform.rotation.eulerAngles.z <= 360f))
+        {
+            bulletTransform.localScale = new Vector2(bulletTransform.localScale.x, 0.7f);
+        }
+        else
+        {
+            bulletTransform.localScale = new Vector2(bulletTransform.localScale.x, -0.7f);
+        }
         newPosition = new Vector3(player.transform.position.x + offsetX, player.transform.position.y + offsetY, player.transform.position.z + offsetZ);
         gameObject.transform.position = newPosition;
     }
 
-    void dashFunction()
-    {
-        angle1 = Mathf.Cos(transform.rotation.eulerAngles.z * Mathf.Deg2Rad) * magnitude;
-        angle2 = Mathf.Sin(transform.rotation.eulerAngles.z * Mathf.Deg2Rad) * magnitude;
-        Vector3 forceVector = new Vector2(angle1, angle2);
+    //void dashFunction()
+    //{
+    //    angle1 = Mathf.Cos(transform.rotation.eulerAngles.z * Mathf.Deg2Rad) * magnitude;
+    //    angle2 = Mathf.Sin(transform.rotation.eulerAngles.z * Mathf.Deg2Rad) * magnitude;
+    //    Vector3 forceVector = new Vector2(angle1, angle2);
 
-        playerRigidbody.velocity = new Vector2(0.1f, 0.1f);
-        playerRigidbody.AddForce(forceVector);
-        //gameObject.SetActive(false);
-    }
+    //    playerRigidbody.velocity = new Vector2(0.1f, 0.1f);
+    //    playerRigidbody.AddForce(forceVector);
+    //    //gameObject.SetActive(false);
+    //}
 }
 

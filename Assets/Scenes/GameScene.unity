@@ -814,15 +814,18 @@ MonoBehaviour:
   playerSpriteRenderer: {fileID: 408591060}
   playerRB: {fileID: 1650508408}
   randomNum: 0
+  numberOfTools: 5
   tools:
   - {fileID: 440904405}
   - {fileID: 565064221}
   - {fileID: 1627507001}
   - {fileID: 1434566451}
+  - {fileID: 1642599306}
   tool0: {fileID: 440904405}
   tool1: {fileID: 565064221}
   tool2: {fileID: 1627507001}
   tool3: {fileID: 1434566451}
+  tool4: {fileID: 1642599306}
 --- !u!4 &175492383
 Transform:
   m_ObjectHideFlags: 0
@@ -2402,7 +2405,7 @@ MonoBehaviour:
   spawnParticles: {fileID: 4891623221172715072, guid: 77dfb159f3ee0944580317bd5803c5ec, type: 3}
   Player: {fileID: 1650508393}
   offsetX: 0.5
-  offsetY: 0.1
+  offsetY: 0
   offsetZ: 0
   bullet: {fileID: 6643453745666309806, guid: 91472930e107f38488d4f50dada4d3ac, type: 3}
   bulletTransform: {fileID: 2143326988}
@@ -4244,13 +4247,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 874779178}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.72, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1627507003}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &874779180
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8865,7 +8868,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1642599308}
   - component: {fileID: 1642599312}
-  - component: {fileID: 1642599311}
   - component: {fileID: 1642599309}
   m_Layer: 0
   m_Name: Graplin Hook
@@ -8873,7 +8875,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1642599308
 Transform:
   m_ObjectHideFlags: 0
@@ -8884,7 +8886,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2104120267}
@@ -8931,7 +8933,7 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -2
   m_Positions:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 1}
@@ -8994,33 +8996,6 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
---- !u!50 &1642599311
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1642599306}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!114 &1642599312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9046,7 +9021,7 @@ MonoBehaviour:
   timerBetweenFiring: 0
   ammo: 2
   offsetX: 0
-  offsetY: 0
+  offsetY: -0.3
   offsetZ: 0
   angle1: 0
   angle2: 0
@@ -9311,7 +9286,7 @@ DistanceJoint2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1650508393}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_EnableCollision: 1
   m_ConnectedRigidBody: {fileID: 0}
@@ -12017,7 +11992,7 @@ Transform:
   m_GameObject: {fileID: 2104120266}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.3, y: 0, z: 0}
+  m_LocalPosition: {x: 0.2, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

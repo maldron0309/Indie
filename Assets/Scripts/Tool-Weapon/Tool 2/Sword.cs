@@ -62,10 +62,10 @@ public class Sword : MonoBehaviour
     }
     private void OnEnable()
     {
-        SwordSprite.transform.rotation = Quaternion.Euler(new Vector3(0, 0, -90));
+        //SwordSprite.transform.rotation = Quaternion.Euler(new Vector3(0, 0, -90));
     }
     private void OnDisable()
     {
-        SwordSprite.transform.rotation = Quaternion.Euler(new Vector3(0, 0, -90));
+       // SwordSprite.transform.rotation = Quaternion.Euler(new Vector3(0, 0, -90));
     }
 }
