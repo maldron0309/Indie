@@ -117,7 +117,7 @@ public class Movement : MonoBehaviour
         else
         {
             // El personaje está en el aire, por lo tanto, está saltando o cayendo
-            if (currentYPosition > previousYPosition)
+            if (currentYPosition > previousYPosition && rigidbody.velocity.y > 0.02)
             {
                 // El personaje está subiendo
                 playerAnimator.SetBool("isJumping", true);
