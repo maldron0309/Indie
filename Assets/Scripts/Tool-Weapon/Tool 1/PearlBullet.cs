@@ -31,20 +31,31 @@ public class PearlBullet : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         //Player.transform.position = gameObject.transform.position;
+        if (GameManager.instance.playerDied)
+        {
+            destroyEvent();
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Player.transform.position = gameObject.transform.position;
-        if (collision.gameObject.CompareTag("platform"))
+        if (collision.gameObject.CompareTag("player"))
+        {
+        }
+        else
         {
             Player.transform.position = gameObject.transform.position;
-            print("Yup");
+            if (collision.gameObject.CompareTag("platform"))
+            {
+                Player.transform.position = gameObject.transform.position;
+                print("Yup");
+                AudioManager.instance.PlaySfx("PearlLand");
+            }
+            destroyEvent();
         }
-        destroyEvent();
     }
 
     private void destroyEvent()

@@ -18,6 +18,7 @@ public class CheckPoint : MonoBehaviour
     {
         if (other.gameObject.CompareTag("player"))
         {
+            AudioManager.instance.PlaySfx("Checkpoint");
             respawn.respawnPoint = this.gameObject;
             checkPointcollider.enabled = false;
             print("check");

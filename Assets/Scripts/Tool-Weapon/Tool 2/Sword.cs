@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Sword : MonoBehaviour
 {
+    public GameObject SwordSprite;
     public Animator swordAnimator;
     public GameObject Player;
     public GameObject boxCollider2D;
@@ -58,5 +59,13 @@ public class Sword : MonoBehaviour
 
         newPosition = new Vector3(Player.transform.position.x + offsetX, Player.transform.position.y + offsetY, Player.transform.position.z +offsetZ);
         gameObject.transform.position = newPosition;
+    }
+    private void OnEnable()
+    {
+        SwordSprite.transform.rotation = Quaternion.Euler(new Vector3(0, 0, -90));
+    }
+    private void OnDisable()
+    {
+        SwordSprite.transform.rotation = Quaternion.Euler(new Vector3(0, 0, -90));
     }
 }
