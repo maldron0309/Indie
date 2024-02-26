@@ -13,6 +13,7 @@ public class Respawn : MonoBehaviour
         {
             player.transform.position = respawnPoint.transform.position;
             GameManager.instance.playerDied = true;
+            AudioManager.instance.PlaySfx("Death");
         }
     }
 

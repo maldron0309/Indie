@@ -25,6 +25,13 @@ public class ActiveCamera : MonoBehaviour
              cameraController.switchCamera(cameraNum); 
         }
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("player"))
+        {
+            GameManager.instance.weaponChange = true;
+        }
+    }
 
     public void setActiveCamera(int _cameraNum)
     {
