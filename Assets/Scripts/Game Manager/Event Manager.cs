@@ -20,6 +20,10 @@ public class EventManager : MonoBehaviour
     public GameObject tool4;
     public GameObject tool5;
     public GameObject tool6;
+    public GameObject tool7;
+    public GameObject tool8;
+    public GameObject tool9;
+    public GameObject tool10;
     IEnumerator DeathToolChange;
     IEnumerator ToolChange;
 

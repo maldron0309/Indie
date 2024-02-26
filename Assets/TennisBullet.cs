@@ -19,7 +19,7 @@ public class TennisBullet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        AudioManager.instance.PlaySfx("DonutThrow");
+        AudioManager.instance.PlaySfx("TennisBounce");
         Player = GameObject.FindGameObjectWithTag("player");
         playerRb = Player.GetComponent<Rigidbody2D>();
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();

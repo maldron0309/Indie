@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 696291032371639885}
   - component: {fileID: 4076420756895871364}
   - component: {fileID: 7344092319018207395}
-  - component: {fileID: 1919078061605072661}
   - component: {fileID: 5630205025899854350}
   m_Layer: 0
   m_Name: TennisBall
@@ -76,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 42ce603bb1755794f866def5244c55c1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -104,7 +103,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 6f1b06f387e88c34db7e247950badb05, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -150,23 +149,6 @@ CircleCollider2D:
   m_Offset: {x: 0.01, y: -0.02}
   serializedVersion: 2
   m_Radius: 0.06
---- !u!114 &1919078061605072661
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5557389384039067558}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7965813ed0ef42049b4e48a0152ef154, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  force: 0
-  damage: 100
-  magnitude: 15
-  brealParticles: {fileID: 8108071738254054218, guid: 3056f6895f91ed9488d2cce12a1d964c, type: 3}
-  destroyTime: 1
 --- !u!114 &5630205025899854350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,3 +161,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 672f9881ea6bb05428c6ca7542464e26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  force: 0
+  damage: 100
+  magnitude: 15
+  brealParticles: {fileID: 4891623221172715072, guid: 77dfb159f3ee0944580317bd5803c5ec, type: 3}
+  destroyTime: 10

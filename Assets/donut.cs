@@ -13,7 +13,7 @@ public class donut : MonoBehaviour
     public bool canFire;
     public float timer;
     public float timerBetweenFiring;
-    [SerializeField] public int ammo = 4;
+    [SerializeField] public int ammo = 2;
     private Vector3 newPosition;
 
     [SerializeField] private float offsetX = 0;
@@ -60,7 +60,7 @@ public class donut : MonoBehaviour
     }
     private void OnEnable()
     {
-        ammo = 4;
+        ammo = 2;
 
         Instantiate(spawnParticles, Player.transform.position, Quaternion.identity);
         //AudioManager.instance.PlaySfx("TransformEnd");

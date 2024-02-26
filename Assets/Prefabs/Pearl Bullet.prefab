@@ -75,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: d86001c338a621e48ab958518f8f7b6b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -130,7 +130,7 @@ MonoBehaviour:
   damage: 100
   magnitude: 22
   brealParticles: {fileID: 8108071738254054218, guid: 3056f6895f91ed9488d2cce12a1d964c, type: 3}
-  destroyTime: 1.2
+  destroyTime: 1
 --- !u!58 &6155330361668522011
 CircleCollider2D:
   m_ObjectHideFlags: 0
