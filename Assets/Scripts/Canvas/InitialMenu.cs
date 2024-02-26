@@ -8,6 +8,11 @@ public class InitialMenu : MonoBehaviour
     public void Play() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
+
+    public void Credits() {
+        SceneManager.LoadScene("Credits");
+    }
+
     public void Exit()
     {
         Debug.Log("Salir..");
