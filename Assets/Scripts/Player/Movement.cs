@@ -6,6 +6,7 @@ using TMPro;
 
 public class Movement : MonoBehaviour
 {
+    public GameObject spawnParticles;
     // Player movement related variables
     [Header("Movement Settings")]
     [SerializeField] private float velocidad;
@@ -338,6 +339,10 @@ public class Movement : MonoBehaviour
             WatchRight = !WatchRight;
             transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
         }
+    }
+    private void OnDisable()
+    {
+        Instantiate(spawnParticles, transform.position, Quaternion.identity);
     }
 
 }

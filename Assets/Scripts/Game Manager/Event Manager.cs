@@ -19,12 +19,14 @@ public class EventManager : MonoBehaviour
     public GameObject tool3;
     public GameObject tool4;
     public GameObject tool5;
+    public GameObject tool6;
     IEnumerator DeathToolChange;
     IEnumerator ToolChange;
 
     // Start is called before the first frame update
     void Start()
     {
+        AudioManager.instance.PlayMusic("MainTheme");
         playerRB.velocity = Vector3.zero;
         
         DeathToolChange = DeathToolChangeCorrutine();
@@ -40,6 +42,7 @@ public class EventManager : MonoBehaviour
         randomNum = Random.Range(0, numberOfTools);
         if (GameManager.instance.playerDied)
         {
+            DisablePlayerSpriteRenderer();
             GameManager.instance.playerCanInput = false;
             FadeDeathAnimation();
             playerRB.velocity = Vector3.zero;

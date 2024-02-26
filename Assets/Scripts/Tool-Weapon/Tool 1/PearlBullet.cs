@@ -56,9 +56,10 @@ public class PearlBullet : MonoBehaviour
                 Player.transform.position = gameObject.transform.position;
                 print("Yup");
                 AudioManager.instance.PlaySfx("PearlLand");
-                playerRb.AddForce(Vector3.forward * magnitude * rb.velocity, ForceMode2D.Impulse);
+                playerRb.AddForce(Vector2.up * magnitude , ForceMode2D.Impulse);
             }
             destroyEvent();
+            print("Plax");
         }
     }
 
