@@ -249,9 +249,11 @@ MonoBehaviour:
   - {fileID: 440904405}
   - {fileID: 565064221}
   - {fileID: 1627507001}
+  - {fileID: 1434566451}
   tool0: {fileID: 440904405}
   tool1: {fileID: 565064221}
   tool2: {fileID: 1627507001}
+  tool3: {fileID: 1434566451}
 --- !u!4 &175492383
 Transform:
   m_ObjectHideFlags: 0
@@ -346,7 +348,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &208452725
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5049,7 +5051,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29ca85a273f423d48800cb1228145f6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SwordSprite: {fileID: 0}
+  SwordSprite: {fileID: 874779178}
   swordAnimator: {fileID: 874779181}
   Player: {fileID: 1650508393}
   boxCollider2D: {fileID: 1867328280}
