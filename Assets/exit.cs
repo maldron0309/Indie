@@ -18,6 +18,10 @@ public class exit : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        SceneManager.LoadScene("Credits");
+        if (collision.gameObject.CompareTag("player"))
+        {
+            SceneManager.LoadScene("Credits");
+        }
+      //  SceneManager.LoadScene("Credits");
     }
 }

@@ -11,7 +11,11 @@ public class EventManager : MonoBehaviour
     public SpriteRenderer playerSpriteRenderer;
     public Rigidbody2D playerRB;
     [SerializeField]private int randomNum;
+    [SerializeField] private int randomNum2;
     [SerializeField] private int numberOfTools;
+    [SerializeField] private int numberOfUselessTools;
+
+    public GameObject infiniteDuckGenerator;
 
     public GameObject[] tools;
     public GameObject tool0;
@@ -20,11 +24,15 @@ public class EventManager : MonoBehaviour
     public GameObject tool3;
     public GameObject tool4;
     public GameObject tool5;
+  
+    public GameObject[] uselessTools;
     public GameObject tool6;
     public GameObject tool7;
     public GameObject tool8;
     public GameObject tool9;
     public GameObject tool10;
+    public GameObject tool11;
+
     IEnumerator DeathToolChange;
     IEnumerator ToolChange;
 
@@ -44,7 +52,7 @@ public class EventManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        randomNum = Random.Range(0, numberOfTools);
+        randomNum = Random.Range(0, numberOfTools + 1);
         if (GameManager.instance.playerDied)
         {
             DisablePlayerSpriteRenderer();
@@ -53,18 +61,22 @@ public class EventManager : MonoBehaviour
             playerRB.velocity = Vector3.zero;
             GameManager.instance.playerDied = false;
             StartCoroutine(DeathToolChange);
-        }else
+        }
+        else
         if (GameManager.instance.weaponChange)
         {
             StartCoroutine(ToolChange);
             GameManager.instance.weaponChange = false;
         }
-        if (Input.GetKeyDown(KeyCode.R) ){
+        if (Input.GetKeyDown(KeyCode.R))
+        {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
-
+        if (GameManager.instance.ducksCollected > 6)
+        {
+            infiniteDuckGenerator.SetActive(true);
+        }
     }
-    
     IEnumerator DeathToolChangeCorrutine()
     {
         while (true)
@@ -77,7 +89,7 @@ public class EventManager : MonoBehaviour
             AudioManager.instance.PlaySfx("Transform");
             yield return new WaitForSeconds(0.833f);
             GameManager.instance.currentPlayerTool = randomNum;
-            EnableTool(GameManager.instance.currentPlayerTool);
+            EnableTool(randomNum);
 
             GameManager.instance.playerCanInput = true;
            
@@ -109,12 +121,23 @@ public class EventManager : MonoBehaviour
         {
             tools[i].SetActive(false);
         }
+        for (int i = 0; i < uselessTools.Length; i++)
+        {
+            uselessTools[i].SetActive(false);
+        }
     }
     void EnableTool(int toolNum)
     {
-        
-       tools[toolNum].SetActive(true);
-        
+        if (toolNum == 6)
+        {
+            randomNum2 = Random.Range(0, numberOfUselessTools);
+            uselessTools[randomNum2].SetActive(true);
+        }
+        else
+        {
+
+            tools[toolNum].SetActive(true);
+        }
     }
     void ToolTransitionAnimation()
     {

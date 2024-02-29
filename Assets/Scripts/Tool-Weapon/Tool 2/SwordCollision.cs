@@ -61,7 +61,7 @@ public class SwordCollision : MonoBehaviour
             playerRigidbody.velocity = new Vector2(0.1f, 0.1f);
             playerRigidbody.AddForce(-forceVector, ForceMode2D.Impulse);
             AudioManager.instance.PlaySfx("SwordClash");
-            gameObject.SetActive(false);
+           gameObject.SetActive(false);
         }
         else
         {
